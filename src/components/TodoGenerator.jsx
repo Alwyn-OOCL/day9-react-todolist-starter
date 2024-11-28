@@ -1,4 +1,4 @@
-import {useContext, useReducer, useState} from "react";
+import {useContext, useState} from "react";
 import {TodoContext} from "../App";
 
 const TodoGenerator = () => {

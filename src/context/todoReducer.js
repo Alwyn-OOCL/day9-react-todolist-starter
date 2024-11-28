@@ -6,7 +6,7 @@ export const todoReducer = (state, action) => {
         case "ADD":
             return [...state, {id: Date.now(), text: action.payload, done: false}]
         case "DELETE":
-            return;
+            return state.filter((item) => item.id !== action.payload)
         default:
             return;
     }
