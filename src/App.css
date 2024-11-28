@@ -5,7 +5,6 @@
 .todo-item-wrapper {
     width: 500px;
     border: 1px solid black;
-    margin: 10px auto;
 }
 
 .todo-input {
@@ -22,4 +21,6 @@
 .delete-button {
     background-color: #eff0ef;
     text-align: center;
+    align-items: center;
+    margin: 10px 0;
 }
