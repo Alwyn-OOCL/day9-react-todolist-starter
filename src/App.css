@@ -1,3 +1,20 @@
 .App {
-  text-align: center;
+    text-align: center;
+}
+
+.todo-item-wrapper {
+    width: 500px;
+    border: 1px solid black;
+    margin: 10px auto;
+}
+
+.todo-input {
+    width: 400px;
+    margin: auto 10px;
+    text-align: center;
+}
+
+.add-button {
+    width:50px;
+    background-color: #6495ee;
 }

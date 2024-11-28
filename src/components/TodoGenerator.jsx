@@ -15,8 +15,18 @@ const TodoGenerator = () => {
     };
     return (
         <div>
-            <input type="text" value={text} max={100} onChange={handleChange}/>
-            <button onClick={handleAdd}>add</button>
+            <input
+                className={"todo-input"}
+                type="text"
+                value={text}
+                max={100}
+                placeholder={"Please input your todo item"}
+                onChange={handleChange}/>
+            <button
+                className={"add-button"}
+                onClick={handleAdd}>
+                add
+            </button>
         </div>
     )
 }

@@ -7,7 +7,6 @@ const TodoGroup = () => {
     const stateArr = context.state;
     return (
         <div>
-            This is the TodoList Component.
             {stateArr.map((state, index) => {
                 return <TodoItem key={state.id + index} item={state}/>
             })}
