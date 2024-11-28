@@ -7,8 +7,12 @@ const TodoGroup = () => {
     const stateArr = context.state;
     return (
         <div>
+            <h2 style={stateArr.length !== 0 ? {display: "none"} : {}}>Add the things you need to do today...</h2>
             {stateArr.map((state, index) => {
-                return <TodoItem key={state.id + index} item={state}/>
+                return <TodoItem
+                    key={state.id + index}
+                    item={state}
+                />
             })}
         </div>
     )
