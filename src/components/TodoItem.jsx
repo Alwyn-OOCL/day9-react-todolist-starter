@@ -17,17 +17,17 @@ const TodoItem = (props) => {
     };
 
     return (
-        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-            <div className="todo-item-wrapper" onClick={handleClick}>
-        <span
-            style={completed ? {textDecoration: "line-through", fontWeight: "bold"} : {textDecoration: "none"}}>
-            {item.text}
-        </span>
+        <div className="todo-item-container">
+            <div className="todo-item-wrapper"
+                 onClick={handleClick}>
+                <span
+                    style={completed ? {textDecoration: "line-through", fontWeight: "bold"} : {textDecoration: "none"}}>
+                    {item.text}
+                </span>
             </div>
             <button
                 className="delete-button"
                 onClick={handleDelete}
-                style={{marginLeft: '10px'}}  // 可根据需要调整间距
             >
                 X
             </button>
