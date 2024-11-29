@@ -9,7 +9,7 @@ const TodoGenerator = () => {
         setText(event.target.value);
     };
     const handleAdd = () => {
-        if (text !== "") {
+        if (text.trim() !== "") {
             dispatch({type: "ADD", payload: text})
             setText("")
         }
