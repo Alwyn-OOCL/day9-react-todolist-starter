@@ -18,6 +18,12 @@
     background-color: #6495ee;
 }
 
+.clear-button {
+    margin: auto 10px;
+    width: 50px;
+    background-color: #6495ee;
+}
+
 .delete-button {
     background-color: #eff0ef;
     text-align: center;
