@@ -1,6 +1,6 @@
 import {useContext, useState} from "react";
 import {TodoContext} from "../App";
-import {getAllTodoItems} from "../api/todos";
+import {addTodoItems, getAllTodoItems} from "../api/todos";
 
 const TodoGenerator = () => {
 
@@ -11,9 +11,13 @@ const TodoGenerator = () => {
     };
     const handleAdd = () => {
         if (text.trim() !== "") {
-            dispatch({type: "ADD", payload: text})
-            setText("")
+            const toAddTodoItem = {text, done: false}
+            addTodoItems(toAddTodoItem).then((newItem) => {
+                dispatch({type: "ADD", payload: newItem})
+                setText("");
+            })
         }
+
     };
 
     const handleFetch = () => {

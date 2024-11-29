@@ -7,6 +7,10 @@ const instance = axios.create({
 
 export const getAllTodoItems = async () => {
     const response = await instance.get("TodoItems")
-    console.log("response", response)
+    return response.data;
+}
+
+export const addTodoItems = async (data) => {
+    const response = await instance.post("TodoItems", data);
     return response.data;
 }
