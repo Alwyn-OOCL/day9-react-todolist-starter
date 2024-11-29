@@ -9,6 +9,7 @@ const TodoItem = (props) => {
 
     const handleClick = () => {
         setCompleted(!completed);
+        dispatch({type: "COMPLETE", payload: item.id})
     }
 
     const handleDelete = () => {
