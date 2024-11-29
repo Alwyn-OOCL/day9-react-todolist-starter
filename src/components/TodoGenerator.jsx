@@ -1,5 +1,6 @@
 import {useContext, useState} from "react";
 import {TodoContext} from "../App";
+import {getAllTodoItems} from "../api/todos";
 
 const TodoGenerator = () => {
 
@@ -13,6 +14,12 @@ const TodoGenerator = () => {
             dispatch({type: "ADD", payload: text})
             setText("")
         }
+    };
+
+    const handleFetch = () => {
+        getAllTodoItems().then((todo) => {
+            dispatch({type: "FETCH", payload: todo})
+        })
     };
 
     const handleKeyDown = (event) => {
@@ -43,6 +50,11 @@ const TodoGenerator = () => {
                 className={"clear-button"}
                 onClick={handleClear}>
                 clear
+            </button>
+            <button
+                className={"clear-button"}
+                onClick={handleFetch}>
+                fetch
             </button>
         </div>
     )

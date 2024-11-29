@@ -1,12 +1,18 @@
 import TodoGroup from "./TodoGroup";
 import TodoGenerator from "./TodoGenerator";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {TodoContext} from "../App";
+import {getAllTodoItems} from "../api/todos";
 
 const TodoList = () => {
 
-    const {state} = useContext(TodoContext);
-    console.log(state)
+    const {dispatch} = useContext(TodoContext);
+    useEffect(() => {
+        getAllTodoItems().then((todo) => {
+            dispatch({type: "FETCH", payload: todo})
+        })
+
+    }, []);
 
     return (
         <div>
