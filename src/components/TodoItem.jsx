@@ -12,7 +12,6 @@ const TodoItem = (props) => {
     }
 
     const handleDelete = () => {
-        console.log("delete ", item.id)
         dispatch({type: "DELETE", payload: item.id})
     };
 
