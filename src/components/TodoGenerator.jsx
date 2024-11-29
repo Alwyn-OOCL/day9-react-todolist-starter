@@ -14,6 +14,12 @@ const TodoGenerator = () => {
             setText("")
         }
     };
+
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            handleAdd()
+        }
+    }
     return (
         <div>
             <input
@@ -22,7 +28,9 @@ const TodoGenerator = () => {
                 value={text}
                 max={100}
                 placeholder={"Please input your todo item"}
-                onChange={handleChange}/>
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+            />
             <button
                 className={"add-button"}
                 onClick={handleAdd}>
