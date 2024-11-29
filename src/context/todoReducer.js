@@ -10,9 +10,7 @@ export const todoReducer = (state, action) => {
         case "FETCH":
             return action.payload;
         case "COMPLETE":
-            const toCompleteItem = state.find((item) => item.id === action.payload)
-            toCompleteItem.done = true;
-            return state.map((item) => item.id === action.payload ? toCompleteItem : item)
+            return state.map((item) => item.id === action.payload ? {...item, done: !item.done} : item)
         case "CLEAR":
             return state.splice(0, state.length)
         default:
