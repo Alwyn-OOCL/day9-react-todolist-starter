@@ -1,6 +1,7 @@
 import "../App.css";
 import {useContext, useState} from "react";
 import {TodoContext} from "../App";
+import {deleteTodoItem} from "../api/todos";
 
 const TodoItem = (props) => {
     const item = props.item;
@@ -13,7 +14,9 @@ const TodoItem = (props) => {
     }
 
     const handleDelete = () => {
-        dispatch({type: "DELETE", payload: item.id})
+        deleteTodoItem(item.id).then(() => {
+            dispatch({type: "DELETE", payload: item.id})
+        })
     };
 
     return (
