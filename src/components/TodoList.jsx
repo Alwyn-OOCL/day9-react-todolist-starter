@@ -9,6 +9,8 @@ const TodoList = () => {
 
     const [loading, setLoading] = useState(false);
     const [todoArr, setTodoArr] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10)
 
     const {dispatch} = useContext(TodoContext);
     useEffect(() => {
@@ -20,15 +22,31 @@ const TodoList = () => {
             setLoading(false);
         })
     }, []);
+
+    const handleSizeChange = (page, pageSize) => {
+        setCurrentPage(page);
+        setPageSize(pageSize);
+    }
     return (
         <div>
             {loading ? <Spin/> : (
                 <div>
                     <h1>Todo List</h1>
-                    <TodoGroup/>
+                    <TodoGroup
+                        pageSize={pageSize}
+                        pageIndex={currentPage}
+                    />
                     <TodoGenerator/>
                     <Pagination
-                        total={todoArr.length} />
+                        align="center"
+                        total={todoArr.length}
+                        pageSize={pageSize}
+                        showSizeChanger
+                        current={currentPage}
+                        showTotal={(total) => `Total ${total} items`}
+                        onChange={handleSizeChange}
+                    />
+
                 </div>
             )}
         </div>

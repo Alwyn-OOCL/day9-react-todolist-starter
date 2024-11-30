@@ -35,7 +35,7 @@ const TodoGenerator = () => {
         dispatch({type: "CLEAR"})
     };
     return (
-        <div>
+        <div style={{margin: "10px auto"}}>
             <input
                 className={"todo-input"}
                 type="text"
