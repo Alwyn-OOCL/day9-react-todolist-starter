@@ -2,7 +2,7 @@ import React, {createContext, useReducer} from "react";
 import './App.css';
 import TodoList from "./components/TodoList";
 import {initialState, todoReducer} from "./context/todoReducer";
-import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Link, Navigate, Route, Routes} from "react-router-dom";
 import NotFound from "./components/NotFound";
 import DoneList from "./components/DoneList";
 
@@ -20,7 +20,7 @@ function App() {
                         <Link to={"/done-list"}>done-list</Link>
                     </div>
                     <Routes>
-                        {/*<Route path={"/"} element={<Navigate to={"/todo-list"}/>}/>*/}
+                        <Route path={"/"} element={<Navigate to={"/todo-list"}/>}/>
                         <Route path={"/todo-list"} element={<TodoList/>}/>
                         <Route path={"/404"} element={<NotFound/>}/>
                         <Route path={"/done-list"} element={<DoneList/>}/>

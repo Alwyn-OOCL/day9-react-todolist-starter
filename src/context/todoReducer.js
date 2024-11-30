@@ -1,5 +1,4 @@
-export const initialState = [
-];
+export const initialState = [];
 
 export const todoReducer = (state, action) => {
     switch (action.type) {
@@ -11,6 +10,8 @@ export const todoReducer = (state, action) => {
             return action.payload;
         case "COMPLETE":
             return state.map((item) => item.id === action.payload ? {...item, done: !item.done} : item)
+        case "UPDATE":
+            return state.map((item) => item.id === action.payload.id ? action.payload : item)
         case "CLEAR":
             return state.splice(0, state.length)
         default:

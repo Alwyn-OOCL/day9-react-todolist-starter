@@ -5,6 +5,7 @@
 .todo-item-wrapper {
     width: 500px;
     border: 1px solid black;
+    margin: 10px;
 }
 
 .todo-input {
@@ -35,5 +36,15 @@
 .todo-item-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.model-text {
+    margin: 30px;
+    width:400px;
+    height:60px;
+}
+
+.edit-modal {
     align-items: center;
 }

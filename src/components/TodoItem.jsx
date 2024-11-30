@@ -1,15 +1,19 @@
 import "../App.css";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {TodoContext} from "../App";
-import {deleteTodoItem,  updateTodoItem} from "../api/todos";
+import {deleteTodoItem, updateTodoItem} from "../api/todos";
+import {Modal} from "antd";
 
 const TodoItem = (props) => {
     const item = props.item;
     const {dispatch} = useContext(TodoContext);
+    const [showModel, setShowModel] = useState(false)
+    const [newText, setNewText] = useState("")
 
     const handleClick = () => {
-        updateTodoItem(item.id, item).then(() => {
-            dispatch({type: "COMPLETE", payload: item.id})
+        const updatedItem = {...item, done: !item.done};
+        updateTodoItem(item.id, updatedItem).then(() => {
+            dispatch({type: "UPDATE", payload: updatedItem})
         })
     }
 
@@ -19,6 +23,25 @@ const TodoItem = (props) => {
         })
     };
 
+    const handleCancel = () => {
+        setShowModel(false);
+    };
+
+    const handleSubmit = () => {
+        const updatedItem = {...item, text: newText};
+        updateTodoItem(item.id, updatedItem).then(() => {
+            dispatch({type: "UPDATE", payload: updatedItem})
+        })
+        setShowModel(false);
+    };
+
+    const handleEdit = () => {
+        setShowModel(true);
+    };
+
+    const handleTextChange = (event) => {
+        setNewText(event.target.value)
+    }
     return (
         <div className="todo-item-container">
             <div className="todo-item-wrapper"
@@ -29,11 +52,31 @@ const TodoItem = (props) => {
                 </span>
             </div>
             <button
+                onClick={handleEdit}
+            >
+                🖊
+            </button>
+            <button
                 className="delete-button"
                 onClick={handleDelete}
             >
                 X
             </button>
+            <Modal
+                className={"edit-modal"}
+                title="Update Todo Item"
+                visible={showModel}
+                onOk={handleSubmit}
+                onCancel={handleCancel}
+                cancelText={"cancel"}
+            >
+                <textarea
+                    className={"model-text"}
+                    onChange={handleTextChange}
+                >
+                {item.text}
+                </textarea>
+            </Modal>
         </div>
 
     )
