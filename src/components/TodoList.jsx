@@ -3,21 +3,19 @@ import TodoGenerator from "./TodoGenerator";
 import {useContext, useEffect, useState} from "react";
 import {TodoContext} from "../App";
 import {getAllTodoItems} from "../api/todos";
-import {Spin, Pagination} from "antd";
+import {Pagination, Spin} from "antd";
 
 const TodoList = () => {
 
-    const [loading, setLoading] = useState(false);
-    const [todoArr, setTodoArr] = useState([])
+    const [loading, setLoading] = useState(true);
+    const [todoArr, setTodoArr] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10)
-
+    const [pageSize, setPageSize] = useState(10);
     const {dispatch} = useContext(TodoContext);
     useEffect(() => {
-        setLoading(true);
-        getAllTodoItems().then((todo) => {
-            setTodoArr(todo)
-            dispatch({type: "FETCH", payload: todo})
+        getAllTodoItems().then((todos) => {
+            setTodoArr(todos);
+            dispatch({type: "FETCH", payload: todos})
         }).finally(() => {
             setLoading(false);
         })
@@ -46,7 +44,6 @@ const TodoList = () => {
                         showTotal={(total) => `Total ${total} items`}
                         onChange={handleSizeChange}
                     />
-
                 </div>
             )}
         </div>

@@ -12,8 +12,6 @@ export const todoReducer = (state, action) => {
             return state.map((item) => item.id === action.payload ? {...item, done: !item.done} : item)
         case "UPDATE":
             return state.map((item) => item.id === action.payload.id ? action.payload : item)
-        case "CLEAR":
-            return state.splice(0, state.length)
         default:
             return;
     }

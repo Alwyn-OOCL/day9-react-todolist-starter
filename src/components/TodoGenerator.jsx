@@ -31,9 +31,6 @@ const TodoGenerator = () => {
             handleAdd()
         }
     }
-    const handleClear = () => {
-        dispatch({type: "CLEAR"})
-    };
     return (
         <div style={{margin: "10px auto"}}>
             <input
@@ -49,11 +46,6 @@ const TodoGenerator = () => {
                 className={"add-button"}
                 onClick={handleAdd}>
                 add
-            </button>
-            <button
-                className={"clear-button"}
-                onClick={handleClear}>
-                clear
             </button>
             <button
                 className={"clear-button"}
