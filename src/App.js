@@ -7,12 +7,13 @@ import NotFound from "./components/NotFound";
 import DoneList from "./components/DoneList";
 import {Menu} from "antd";
 import HelpPage from "./components/HelpPage";
+import HardStop from "./components/HardStop";
 
 export const TodoContext = createContext();
 
 function App() {
     const [state, dispatch] = useReducer(todoReducer, initialState);
-    const [current, setCurrent] = useState('todo-list');
+    const [current, setCurrent] = useState('');
     const handleMenuChange = (e) => {
         setCurrent(e.key);
         window.location.href = `/${e.key}`;
@@ -38,8 +39,10 @@ function App() {
                         <Route path={"/"} element={<Navigate to={"/todo-list"}/>}/>
                         <Route path={"/todo-list"} element={<TodoList/>}/>
                         <Route path={"/404"} element={<NotFound/>}/>
+                        <Route path={"/500"} element={<HardStop/>}/>
                         <Route path={"/done-list"} element={<DoneList/>}/>
                         <Route path={"/help"} element={<HelpPage/>}/>
+                        <Route path={"*"} element={<NotFound/>}/>
                     </Routes>
                 </Router>
             </TodoContext.Provider>

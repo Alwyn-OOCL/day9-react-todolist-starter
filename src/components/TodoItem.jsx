@@ -1,19 +1,41 @@
 import "../App.css";
 import {useContext, useState} from "react";
 import {TodoContext} from "../App";
-import {deleteTodoItem, updateTodoItem} from "../api/todos";
-import {Modal} from "antd";
+import {deleteTodoItem, getTodoItemById, updateTodoItem} from "../api/todos";
+import {Modal, Table} from "antd";
 
 const TodoItem = (props) => {
     const item = props.item;
     const {dispatch} = useContext(TodoContext);
-    const [showModel, setShowModel] = useState(false)
+    const [showEditModel, setShowEditModel] = useState(false)
+    const [showDetailModel, setShowDetailModel] = useState(false)
     const [newText, setNewText] = useState("")
+    const [detail, setDetail] = useState()
+
+    const columns = [
+        {
+            title: 'id',
+            dataIndex: 'id',
+            key: 'id',
+        },
+        {
+            title: 'text',
+            dataIndex: 'text',
+            key: 'text',
+        },
+        {
+            title: 'done',
+            dataIndex: 'done',
+            key: 'done',
+            render: (done) => (done ? '是' : '否'),
+        },
+    ];
 
     const handleClick = () => {
-        const updatedItem = {...item, done: !item.done};
-        updateTodoItem(item.id, updatedItem).then(() => {
-            dispatch({type: "UPDATE", payload: updatedItem})
+        getTodoItemById(item.id).then((item) => {
+            setDetail(item)
+        }).finally(() => {
+            setShowDetailModel(true);
         })
     }
 
@@ -24,7 +46,8 @@ const TodoItem = (props) => {
     };
 
     const handleCancel = () => {
-        setShowModel(false);
+        setShowEditModel(false);
+        setShowDetailModel(false);
     };
 
     const handleSubmit = () => {
@@ -32,16 +55,25 @@ const TodoItem = (props) => {
         updateTodoItem(item.id, updatedItem).then(() => {
             dispatch({type: "UPDATE", payload: updatedItem})
         })
-        setShowModel(false);
+        setShowEditModel(false);
     };
 
     const handleEdit = () => {
-        setShowModel(true);
+        setShowEditModel(true);
     };
 
     const handleTextChange = (event) => {
         setNewText(event.target.value)
     }
+    const handleDone = () => {
+        const updatedItem = {...item, done: !item.done};
+        updateTodoItem(item.id, updatedItem).then(() => {
+            dispatch({type: "UPDATE", payload: updatedItem})
+        })
+    };
+    const handleOk = () => {
+        setShowDetailModel(false);
+    };
     return (
         <div className="todo-item-container">
             <div className="todo-item-wrapper"
@@ -62,10 +94,16 @@ const TodoItem = (props) => {
             >
                 X
             </button>
+            <button
+                className="delete-button"
+                onClick={handleDone}
+            >
+                Done
+            </button>
             <Modal
                 className={"edit-modal"}
                 title="Update Todo Item"
-                visible={showModel}
+                visible={showEditModel}
                 onOk={handleSubmit}
                 onCancel={handleCancel}
                 cancelText={"cancel"}
@@ -73,9 +111,19 @@ const TodoItem = (props) => {
                 <textarea
                     className={"model-text"}
                     onChange={handleTextChange}
+                    defaultValue={item.text}
                 >
-                {item.text}
                 </textarea>
+            </Modal>
+            <Modal
+                className={"edit-modal"}
+                title="Todo Item Detail"
+                visible={showDetailModel}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                cancelText={"cancel"}
+            >
+                <Table dataSource={detail} columns={columns}/>
             </Modal>
         </div>
 

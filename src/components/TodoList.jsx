@@ -2,7 +2,7 @@ import TodoGroup from "./TodoGroup";
 import TodoGenerator from "./TodoGenerator";
 import {useContext, useEffect, useState} from "react";
 import {TodoContext} from "../App";
-import {getAllTodoItems} from "../api/todos";
+import {getAllTodoItemsWithPagination} from "../api/todos";
 import {Pagination, Spin} from "antd";
 
 const TodoList = () => {
@@ -13,9 +13,9 @@ const TodoList = () => {
     const [pageSize, setPageSize] = useState(10);
     const {dispatch} = useContext(TodoContext);
     useEffect(() => {
-        getAllTodoItems().then((todos) => {
-            setTodoArr(todos);
-            dispatch({type: "FETCH", payload: todos})
+        getAllTodoItemsWithPagination(currentPage, pageSize).then((todos) => {
+            setTodoArr(todos.content);
+            dispatch({type: "FETCH", payload: todos.content})
         }).finally(() => {
             setLoading(false);
         })
